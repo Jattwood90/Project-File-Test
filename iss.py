@@ -1,8 +1,9 @@
+from tkinter import *
 import webbrowser
 import requests
 import json
-import click
 
+#iss json and browser function
 def iss():
     #api link
     url = ("http://api.open-notify.org/iss-now.json")
@@ -20,13 +21,23 @@ def iss():
     #opens result in google maps
     webbrowser.open(f"https://www.google.com/maps/search/?api=1&query={latitude},{longitude}")
 
-#Prompt
+#window prompt code using tkinter
 
-print("Welcome to the ISS viewer! \n"
+root = Tk()
+
+def close_window():
+    root.destroy()
+
+theLabel = Label(root, text=("Welcome to the ISS viewer! \n\n"
       "This programme will open up the current location in your browser with Googlemaps."
-      "\nWould you like to continue?")
+      "\n\n\nWould you like to continue?\n\n"))
 
-if click.confirm('Yes or no?', default=True):
-    iss()
-else:
-    print("No selected. Goodbye")
+theLabel.pack()
+
+btn = Button(root, text = "Yes", command = iss)
+btn.pack()
+
+btnNo = Button(root, text = "No", command = close_window)
+btnNo.pack()
+
+root.mainloop()
